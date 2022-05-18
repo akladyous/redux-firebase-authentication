@@ -38,7 +38,7 @@ export default function UsersLogout() {
                                     aria-describedby="response"
                                 >
                                     {state.isAuthenticated
-                                        ? `Last login at ${new Date(parseInt(state.user.reloadUserInfo.lastLoginAt)).toLocaleString()}`
+                                        ? `Last login at ${new Date(parseInt(state.user.lastLoginAt)).toLocaleString()}`
                                         : "user not logged in"}
                                 </p>
                             </div>

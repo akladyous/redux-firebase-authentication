@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { auth } from "./firebaseInit.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import {
-    userState,
     setUserStatus,
     setUser,
     setError,
@@ -12,15 +11,14 @@ import {
 
 export default function UserAuthListener({ children }) {
     const dispatch = useDispatch();
-    const {user} = useSelector(userState)
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(
             auth,
-            (currentUser) => {
-                if (currentUser) {
+            (user) => {
+                if (user) {
                     dispatch(setUserStatus(true));
-                    dispatch(setUser(currentUser));
+                    dispatch(setUser(user));
                 } else {
                     dispatch(resetState());
                 }
@@ -32,7 +30,7 @@ export default function UserAuthListener({ children }) {
 
         return () => unSubscribe;
 
-    }, [dispatch, user]);
+    }, [dispatch]);
 
     return <>{children}</>;
 }

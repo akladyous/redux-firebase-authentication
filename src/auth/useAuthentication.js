@@ -1,11 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { auth } from './firebaseInit.js'
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     signOut,
     AuthErrorCodes,
-    // onAuthStateChanged,
 } from "firebase/auth";
 
 const handleErrors = (error) => {
@@ -32,12 +31,18 @@ export const userLogin = createAsyncThunk(
     async (userData) => {
         const {email, password} = userData;
         try {
-            const userCredential = await signInWithEmailAndPassword(
+            const user = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
-            return userCredential;
+            return {
+                id: user.user.uid,
+                email: user.user.email,
+                photoUrl: user.user.photoURL,
+                phoneNumber: user.user.phoneNumber,
+                lastLoginAt: user.user.metadata.lastLoginAt,
+            };
         } catch (error) {
             throw new Error(handleErrors(error));
         }
@@ -49,12 +54,18 @@ export const userSignUp = createAsyncThunk(
     async (userData) => {
         const { email, password } = userData
         try {
-            const userCredential = await createUserWithEmailAndPassword(
+            const user = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
-            return userCredential;
+            return {
+                id: user.user.uid,
+                email: user.user.email,
+                photoUrl: user.user.photoURL,
+                phoneNumber: user.user.phoneNumber,
+                lastLoginAt: user.user.metadata.lastLoginAt,
+            };
         } catch (error) {
             throw new Error(handleErrors(error));
         }

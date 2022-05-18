@@ -30,7 +30,13 @@ export const userSlice = createSlice({
             state.isAuthenticated = action.payload;
         },
         setUser: (state, action) => {
-            state.user = action.payload;
+            state.user = {
+                id: action.payload.uid,
+                email: action.payload.email,
+                photoUrl: action.payload.photoURL,
+                phoneNumber: action.payload.phoneNumber,
+                lastLoginAt: action.payload.metadata.lastLoginAt,
+            };
         },
         setMessage: (state, action) => {
             state.message = action.payload;
@@ -54,9 +60,9 @@ export const userSlice = createSlice({
                 state.isAuthenticated = true;
                 state.error = "";
                 state.message = "Login successfullt completed";
-                state.user = { ...action.payload.user };
+                state.user = { ...action.payload };
             })
-            .addCase(userLogin.rejected, (state, action) => {
+            .addCase(userLogin.rejected, (state) => {
                 state.isAuthenticated = false;
             })
             .addCase(userSignOut.fulfilled, (state) => {
@@ -66,12 +72,12 @@ export const userSlice = createSlice({
             .addCase(userSignUp.fulfilled, (state, action) => {
                 state.isAuthenticated = true;
                 state.message = "Account successfully created";
-                state.user = { ...action.payload.user };
+                state.user = { ...action.payload };
             })
             .addMatcher(isPendingAction, (state) => {
                 state.status = "loading";
             })
-            .addMatcher(isFulfilledAction, (state, action) => {
+            .addMatcher(isFulfilledAction, (state) => {
                 state.status = "succeeded";
             })
             .addMatcher(isRejectedAction, (state, action) => {
