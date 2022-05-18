@@ -1,4 +1,4 @@
-const moment = require("moment");
+import moment from "moment";
 
 // This is the format our application will be using to store dates
 const dateFormat = (moment) => moment.format("MMMM DD, YYYY");
@@ -9,7 +9,7 @@ const twoWeeksFromNow = moment().add(2, "weeks");
 const twoWeeksOneDayFromNow = moment().add(2, "weeks").add(1, "day");
 const twoWeeksTwoDaysFromNow = moment().add(2, "weeks").add(2, "days");
 
-const reservations = [
+export const reservations = [
     {
         id: "12345",
         restaurantId: "123",
@@ -39,7 +39,7 @@ const reservations = [
     },
 ];
 
-const reviews = [
+export const reviews = [
     {
         id: "111111",
         reservationId: "12345",
@@ -61,7 +61,7 @@ const reviews = [
     },
 ];
 
-const dateAvailabilities = [
+export const dateAvailabilities = [
     {
         id: "888888",
         restaurantId: "123",
@@ -118,7 +118,7 @@ const dateAvailabilities = [
     },
 ];
 
-const restaurants = [
+export const restaurants = [
     {
         id: "123",
         name: "Hemingway's",
@@ -178,9 +178,9 @@ const restaurants = [
     },
 ];
 
-module.exports = {
-    reservations,
-    reviews,
-    dateAvailabilities,
-    restaurants,
-};
+// module.exports = {
+//     reservations,
+//     reviews,
+//     dateAvailabilities,
+//     restaurants,
+// };

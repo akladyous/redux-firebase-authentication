@@ -1,5 +1,22 @@
-const firebase = require("firebase");
-require("firebase/firestore");
+const { initializeApp } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+const { getAuth } = require('firebase/auth')
+
+const firebaseApp = initializeApp({
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
+});
+const auth = getAuth(firebaseApp);
+initializeApp();
+
+const db = getFirestore();
+
+// ------------------------------------------------------------
 
 const {
     reservations,
@@ -7,21 +24,6 @@ const {
     dateAvailabilities,
     reviews,
 } = require("./testData");
-
-var firebaseConfig = {
-    apiKey: "AIzaSyDXne4P39h2jDXJ9bE8Wc84XUlllRf3mhw",
-    authDomain: "restaurant-reservations-144e5.firebaseapp.com",
-    databaseURL: "https://restaurant-reservations-144e5.firebaseio.com",
-    projectId: "restaurant-reservations-144e5",
-    storageBucket: "restaurant-reservations-144e5.appspot.com",
-    messagingSenderId: "485604802640",
-    appId: "1:485604802640:web:5366bbb357e741e67d5155",
-    measurementId: "G-3DQ4Q3QZQC",
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
 
 function populateCollection(collectionName, items) {
     return Promise.all(
