@@ -36,6 +36,12 @@ export const userLogin = createAsyncThunk(
                 email,
                 password
             );
+            auth
+            .currentUser
+            .getIdToken({ forceRefresh: true })
+            .then(token =>{
+                console.log('token : ', token)
+            })
             return {
                 id: user.user.uid,
                 email: user.user.email,
