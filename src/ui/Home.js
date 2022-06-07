@@ -1,7 +1,7 @@
-
+import { getReviews } from "../reviews/getReviews.js";
 export default function Home() {
 
-    
+    getReviews()
 
     return (
         <>

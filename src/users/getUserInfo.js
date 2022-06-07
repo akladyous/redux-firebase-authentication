@@ -3,7 +3,7 @@ import { db } from "../auth/firebaseInit.js";
 
 
 export const getUserInfo = async userID => {
-    const userInfoDoc = collection(db, 'users').doc(userID).get();
+    const userInfoDoc = await collection(db, 'users').doc(userID).get();
         const userInfo = userInfoDoc.data();
         if (!userInfo) return null;
         return {
