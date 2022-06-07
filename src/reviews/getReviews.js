@@ -1,6 +1,6 @@
 import { db } from '../auth/firebaseInit.js'
 import { collection } from "firebase/firestore";
-import { getUserInfo } from '../users/getUserInfo.js';
+// import { getUserInfo } from '../users/getUserInfo.js';
 
 
 export const getReviews = async restaurantId => {
@@ -14,13 +14,14 @@ export const getReviews = async restaurantId => {
         }));
         console.log(reviews);
 
-        const populatedReviews = await mapAsync(reviews, async (review) => {
-            const author = await getUserInfo(review.userId);
-            return {
-                ...review,
-                author,
-            };
-        });
+        // const populatedReviews = await mapAsync(reviews, async (review) => {
+        //     const author = await getUserInfo(review.userId);
+        //     return {
+        //         ...review,
+        //         author,
+        //     };
+        // });
 
-        return populatedReviews;
+        // return populatedReviews;
+        return reviews;
 }
