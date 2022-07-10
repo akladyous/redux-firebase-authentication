@@ -1,3 +1,7 @@
+import { auth } from "../auth/firebaseInit.js";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "../auth/firebaseInit.js";
+
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userLogin } from "../auth/useAuthentication.js";
@@ -12,7 +16,6 @@ export default function UsersLogin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-
     const handleForm = async (e) => {
         e.preventDefault();
         dispatch(userLogin({ email, password }));
@@ -22,7 +25,26 @@ export default function UsersLogin() {
         //     }, 3000);
         // }
     };
-    
+
+    const getUser = async (userID) => {
+        const currentUser = auth.currentUser;
+        const currentUserRef = doc(db, 'users', currentUser.uid);
+
+
+        const usersCollection = collection(db, 'users');
+        const q = query(usersCollection, where('first_name', '==', 'will'));
+        const querySnapshot = await getDocs(q);
+        console.log("document data : ", querySnapshot);
+
+        querySnapshot.forEach((doc) => {
+            console.log("doc.id : ", doc.data(), 'usrer id : ', userID);
+
+        });
+        console.log('user id : ', currentUser.uid);
+        console.log('currentUserRef : ', currentUserRef)
+    }
+
+
     return (
         <div className="container my-3">
             <div className="row justify-content-md-center">
@@ -78,11 +100,9 @@ export default function UsersLogin() {
                                         className="text-center border-0 form-control"
                                         aria-describedby="response"
                                     >
-                                        {
-                                            state.isAuthenticated
+                                        {state.isAuthenticated
                                             ? "login successfully completed"
-                                            : state.error
-                                        }
+                                            : state.error}
                                     </p>
                                 </div>
                                 <div className="row justify-content-center">
@@ -100,6 +120,10 @@ export default function UsersLogin() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="div" style={{ margin: "20px auto", width: "50%" }}>
+                <button onClick={getUser} style={{ margin: 'auto', display: 'block' }}>userInfo</button>
             </div>
         </div>
     );

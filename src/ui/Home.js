@@ -1,7 +1,4 @@
-import { getReviews } from "../reviews/getReviews.js";
 export default function Home() {
-
-    getReviews()
 
     return (
         <>
@@ -9,6 +6,7 @@ export default function Home() {
                 <h1>home page</h1>
 
                 {/* <button onClick={handleSeed}>seed</button> */}
+
             </div>
         </>
     );
