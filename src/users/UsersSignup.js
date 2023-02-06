@@ -17,7 +17,7 @@ export default function UsersSignup() {
     const handleForm = async (e) => {
         e.preventDefault();
         if (formValidation && !state.isAuthenticated) {
-            dispatch(userSignUp({email, password}))
+            dispatch(userSignUp({ email, password }))
         };
     };
 
@@ -97,9 +97,9 @@ export default function UsersSignup() {
                                         aria-describedby="response"
                                     >
                                         {
-                                            (state.isAuthenticated )
-                                            ? 'Account created Successfully'
-                                            : state.error
+                                            (state.isAuthenticated)
+                                                ? 'Account created Successfully'
+                                                : state.error
                                         }
                                     </p>
                                 </div>

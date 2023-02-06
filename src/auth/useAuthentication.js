@@ -29,7 +29,7 @@ const handleErrors = (error) => {
 export const userLogin = createAsyncThunk(
     "user/userLogin",
     async (userData) => {
-        const {email, password} = userData;
+        const { email, password } = userData;
         try {
             const user = await signInWithEmailAndPassword(
                 auth,
@@ -37,11 +37,11 @@ export const userLogin = createAsyncThunk(
                 password
             );
             auth
-            .currentUser
-            .getIdToken({ forceRefresh: true })
-            .then(token =>{
-                console.log('token : ', token)
-            })
+                .currentUser
+                .getIdToken({ forceRefresh: true })
+                .then(token => {
+                    console.log('token : ', token)
+                })
             return {
                 id: user.user.uid,
                 email: user.user.email,
